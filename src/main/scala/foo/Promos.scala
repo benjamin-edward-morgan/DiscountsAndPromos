@@ -8,7 +8,9 @@ case class PromotionCombo(promotionCodes: Seq[String])
 object Promos {
   
     //helper for below methods:
-    //given some chosen set of promo codes, and a remaining set of promotions, return a set of sets where inner sets are promo combos
+    //given some chosen set of preselected promo codes, 
+    //and a remaining set of promotions, 
+    //return a set of sets where inner sets are valid promo combos
     private def recursiveFindMorePromos(chosen: Set[String], remaining: Set[Promotion]): Set[Set[String]] = {
         //filter all the remaining promotions that are combinable with the chosen set
         val combineable = remaining.filterNot{ promo => 
@@ -27,7 +29,9 @@ object Promos {
         }
     }
 
-    //return possible longest combination of promos
+    /**
+      * return all longest possible combinations of promos
+      */
     def allCombinablePromotions(allPromotions: Seq[Promotion]): Seq[PromotionCombo] = {
         recursiveFindMorePromos(Set.empty, allPromotions.toSet)
             .toSeq
@@ -37,7 +41,10 @@ object Promos {
             }
     }
 
-    //return every allowed combination that includes the provided promotionCode
+    /**
+      * return all longest possible combinations of promos that include promotionCode 
+      * the supplied promotionCode is returned first in all returned results
+      */
     def combinablePromotions(
         promotionCode: String,
         allPromotions: Seq[Promotion]

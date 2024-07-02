@@ -29,7 +29,7 @@ object Discounts {
     )
     
     /**
-      * Returns the best group prices by rateGroup/cabinCode given a list of Pates and CabinPrices 
+      * Returns the best group prices by rateGroup/cabinCode given a list of Rates and CabinPrices 
       * 
       * If the CabinPrice has a rateCode not found in rates, it will be excluded from the results
       */
@@ -51,6 +51,7 @@ object Discounts {
             price <- prices 
             rateGroup <- ratesMap.get(price.rateCode).toSeq
         } {
+            //construct this price and CabinGroup key
             val cabinGroup = CabinGroup(price.cabinCode, rateGroup);
             val thisPrice =  BestGroupPrice(
                 cabinCode = price.cabinCode,
